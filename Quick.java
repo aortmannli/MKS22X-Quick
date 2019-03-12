@@ -13,18 +13,36 @@ public class Quick{
    *@return the index of the final position of the pivot element.
    */
 
-  int partition ( int [] data, int start, int end){
-    /* pivot = random int between 0 to data.length*
-    swap(start,pivot,data)
-    pivot = start
-    start++/
+    public static int partition(int start,int end,int[] data){
+      Random R = new Random();
+      int pivot = data[R.nextInt(data.length)];
 
-  }
+      swap(data,start,pivot);
+      pivot=start++;
+      while(start != end){
+        if(data[start] > data[pivot]){
+          swap(data,start,end--);
+        }else{
+          start++;
+        }
+      }
+      if(data[start] > data[pivot]){
+        start--;
+      }
+      swap(data,start,pivot);
+      return start;
+    }
 
+
+  private static void swap(int[] data, int a, int b) {
+		int x = data[a];
+		data[a] = data[b];
+		data[b] = x;
+	}
   /*return the value that is the kth smallest value of the array.
   */
   public static int quickselect(int []data, int k){
-
+    return 0;
   }
 
 }
