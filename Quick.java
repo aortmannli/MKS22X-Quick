@@ -1,48 +1,54 @@
+
 import java.util.*;
 import java.io.*;
 
-public class Quick{
+	public class Quick{
+	  public static void main(String[] args){
+	    //testing partition
+	    int[] sorted = {-100,-99,-88,0,2,3,99,100};
+	    for(int i=0;i<8;i++){
+	      int[] ary = {-100,-99,99,-88,100,0,3,2};
+	      System.out.println(Arrays.toString(ary));
+	      int val = quickSelect(ary,i);
+	      System.out.println(val);
+	      if(val != sorted[i]) System.out.println("error: "+Arrays.toString(ary));
+	    }
+	  }
+    private static void swap(int[] data, int a, int b) {
+    		int x = data[a];
+    		data[a] = data[b];
+    		data[b] = x;
+    	}
 
+  	public static int quickSelect(int[] data, int k) {
+  		int start = 0;
+  		int end = data.length-1;
 
-    /*Modify the array such that:
-   *1. Only the indices from start to end inclusive are considered in range
-   *2. A random index from start to end inclusive is chosen, the corresponding
-   *   element is designated the pivot element.
-   *3. all elements in range that are smaller than the pivot element are placed before the pivot element.
-   *4. all elements in range that are larger than the pivot element are placed after the pivot element.
-   *@return the index of the final position of the pivot element.
-   */
+  		while (true) {
+  			int pivot = partition(data, start, end);
+  			if (k == pivot) return data[k];
 
-    public static int partition(int start,int end,int[] data){
-      Random R = new Random();
-      int pivot = data[R.nextInt(data.length)];
+  			if (k < pivot) end = pivot;
+  			else start = pivot;
+  		}
+  	}
 
-      swap(data,start,pivot);
-      pivot=start++;
-      while(start != end){
-        if(data[start] > data[pivot]){
-          swap(data,start,end--);
-        }else{
-          start++;
-        }
-      }
-      if(data[start] > data[pivot]){
-        start--;
-      }
-      swap(data,start,pivot);
-      return start;
-    }
+    private static int partition(int[] data, int start, int end) {
+      int pivot = (int)(Math.random() * (end - start + 1)) + start;
 
+  		swap(data, start, pivot);
+  		pivot = start++;
 
-  private static void swap(int[] data, int a, int b) {
-		int x = data[a];
-		data[a] = data[b];
-		data[b] = x;
-	}
-  /*return the value that is the kth smallest value of the array.
-  */
-  public static int quickselect(int []data, int k){
-    return 0;
-  }
+  		while (start != end) {
+  			if (data[start] < data[pivot] || data[start] == data[pivot]) start++;
+  			else {
+  				swap(data, start, end);
+  				end--;
+  			}
+  		}
 
+  		if (data[start] > data[pivot]) start--;
+  		swap(data, pivot, start);
+  		return start;
+	   }
 }
