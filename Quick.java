@@ -6,13 +6,18 @@ import java.io.*;
 	  public static void main(String[] args){
 	    //testing partition
 	    int[] sorted = {-100,-99,-88,0,2,3,99,100};
+      int[] ary = {-100,-99,99,-88,100,0,3,2};
 	    for(int i=0;i<8;i++){
-	      int[] ary = {-100,-99,99,-88,100,0,3,2};
+
 	      System.out.println(Arrays.toString(ary));
 	      int val = quickSelect(ary,i);
 	      System.out.println(val);
 	      if(val != sorted[i]) System.out.println("error: "+Arrays.toString(ary));
+
 	    }
+
+      quicksort(ary);
+      System.out.println(Arrays.toString(ary));
 	  }
     private static void swap(int[] data, int a, int b) {
     		int x = data[a];
@@ -33,6 +38,15 @@ import java.io.*;
   		}
   	}
 
+    /*private int partitionDutch(int[] data,int start, int end){
+       int n = data.length - 1;
+
+       while(start<= end){
+
+       }
+
+    }*/
+
     private static int partition(int[] data, int start, int end) {
       int pivot = (int)(Math.random() * (end - start + 1)) + start;
 
@@ -41,6 +55,7 @@ import java.io.*;
 
   		while (start != end) {
   			if (data[start] < data[pivot] || data[start] == data[pivot]) start++;
+
   			else {
   				swap(data, start, end);
   				end--;
@@ -51,4 +66,15 @@ import java.io.*;
   		swap(data, pivot, start);
   		return start;
 	   }
+
+     private static void quicksort(int[] data){
+       quicksortH(data, 0, data.length-1);
+     }
+     private static void quicksortH(int[] data, int start, int end){
+       if( start < end){
+         int pivot = partition(data,start,end);
+         quicksortH(data,start,pivot -1);
+         quicksortH(data, pivot+1, end);
+       }
+     }
 }
