@@ -39,10 +39,10 @@ public class Quick{
 	}
 
   private static void swap(int[] data, int a, int b) {
-  		int x = data[a];
-  		data[a] = data[b];
-  		data[b] = x;
-  	}
+		int x = data[a];
+		data[a] = data[b];
+		data[b] = x;
+	}
 
 	public static int quickSelect(int[] data, int k) {
 		int start = 0;
