@@ -3,6 +3,9 @@ import java.util.*;
 import java.io.*;
 
 public class Quick{
+
+	public static int insertion = 100;
+
 	public static void main(String[]args){
 	  System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
 	  int[]MAX_LIST = {1000000000,500,10};
@@ -98,14 +101,38 @@ public class Quick{
 	 return new int[] {lo, hi};
  	}
 
-	private static void quicksort(int[] data){
-	 quicksortH(data, 0, data.length-1);
-	}
-	private static void quicksortH(int[] data, int start, int end){
-		if( start < end){
-		 int[] pivot = partitionDutch(data,start,end);
-		 quicksortH(data,start,pivot[0] -1);
-		 quicksortH(data, pivot[1]+1, end);
+	public static void insertionSort(int[] data) {
+		int end = data.length;
+		int start;
+    int hold;
+
+		for (int x = 1; x < end; x++) {
+			start = x;
+			hold = data[start];
+			while (start != 0 && hold < data[start-1]) {
+				data[start] = data[start-1];
+				start--;
+			}
+			data[start] = hold;
 		}
 	}
+
+	private static void quicksort(int[] data){
+	 quicksortH(data, 0, data.length-1);
+	 insertionSort(data);
+	}
+
+
+
+	private static void quicksortH(int[] data, int start, int end){
+		if (start+insertion < end){
+			if( start < end){
+			 int[] pivot = partitionDutch(data,start,end);
+			 quicksortH(data,start,pivot[0] -1);
+			 quicksortH(data, pivot[1]+1, end);
+			}
+		}
+	}
+
+
 }
